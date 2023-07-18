@@ -15,9 +15,10 @@ class Messager(commands.Cog):
         print(f'{self.bot.user.name} has connected to Discord')
         await self.youtube_playlist_getter.start()
         
-    @tasks.loop(seconds=5)
+    @tasks.loop(minutes=5)
     async def youtube_playlist_getter(self):
         data = await youtube.get_videos(
+            self.bot.data_folder,
             self.bot.config['KEY'], 
             self.bot.config['PLAYLIST'], 
             50
@@ -31,7 +32,7 @@ class Messager(commands.Cog):
                     )
                     for video in data:
                         await webhook.send(
-                            content = f"## New video in playlist!\n➡️  https://www.youtube.com/watch?v={video}",
+                            content = f"## New video in playlist!\n⬇️  https://www.youtube.com/watch?v={video}",
                             username = "Messenger",
                             avatar_url = self.bot.user.avatar.url,
                             wait= True

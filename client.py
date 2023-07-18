@@ -23,7 +23,8 @@ class Batler(commands.Bot):
                     "BOT_PREFIX": "", 
                     "DISCORD_TOKEN": "",
                     "KEY": "",
-                    "WEBHOOK": ""
+                    "WEBHOOK": "",
+                    "PLAYLIST": ""
                     }, file)
                 raise EmptyConfig(self.config_path)
             elif self.config['BOT_PREFIX'] == "":
