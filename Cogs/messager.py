@@ -2,6 +2,7 @@ from client import Batler
 import discord
 import youtube
 import aiohttp
+from client import ConfigFile
 from discord.ext import commands, tasks
 
 
@@ -19,15 +20,15 @@ class Messager(commands.Cog):
     async def youtube_playlist_getter(self):
         data = await youtube.get_videos(
             self.bot.data_folder,
-            self.bot.config['KEY'], 
-            self.bot.config['PLAYLIST'], 
+            self.bot.config.yt_key, 
+            self.bot.config.yt_playlist, 
             50
         )
         if data is not None:
             if len(data) < 10:
                 async with aiohttp.ClientSession() as session:
                     webhook = discord.Webhook.from_url(
-                        self.bot.config["WEBHOOK"], 
+                        self.bot.config.yt_webhook, 
                         session=session
                     )
                     for video in data:

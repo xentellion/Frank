@@ -1,7 +1,7 @@
 import os
 import asyncio
 import discord
-from client import Batler
+from client import Batler, ConfigFile
 
 discord.utils.setup_logging()
 
@@ -16,7 +16,7 @@ frank = Batler(
     intents = intents,
     activity = activity,
     data_folder= './Data/',
-    config= 'config.yml'
+    config= 'config.json'
 )
 
 frank.remove_command('help')
@@ -29,6 +29,6 @@ async def main():
     for f in os.listdir('./Cogs'):
         if f.endswith('.py'):
             await frank.load_extension(f'Cogs.{f[:-3]}')
-    await frank.start(frank.config['DISCORD_TOKEN'])
+    await frank.start(frank.config.token)
 
 asyncio.run(main())
